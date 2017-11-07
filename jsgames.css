@@ -1,0 +1,87 @@
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: rgba(175,255,0,0.19);
+    text-align: center;
+    font-family: "Courier New", monospace;
+}
+
+#title {
+    text-align: center;
+}
+
+#new-game {
+    display: inline-block;
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    background-color: #b6ff00;
+    border-color:#000;
+}
+
+#game-area {
+    margin-top: 50px;
+    background-color: #ffee2d;
+}
+
+#game-container {
+    padding: 20px;
+}
+
+#result {
+    text-align: center;
+    font-size: 14px;
+}
+
+#verify {
+    margin: 20px auto;
+    display: block;
+}
+
+#finalresult {
+    margin: 20px;
+}
+
+#comment-container {
+    margin: 20px;
+}
+
+#comment {
+    font-weight: bold;
+}
+
+#comment.success {
+    color: #00ad05;
+}
+
+#comment.failure {
+    color: #ff00be;
+}
+
+#score {
+    font-weight: bold;
+}
+
+#score.underzero {
+    color: #ff00be;
+}
+
+#congratulations {
+    padding: 20px;
+    font-size: 30px;
+    font-weight: bold;
+}
+#footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 10px;
+}
