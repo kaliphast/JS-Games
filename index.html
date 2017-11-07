@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS-Games by Michał Kamiński</title>
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<script>
+$(document).ready(function(){
+    var $container = $('<div>',{
+        id: 'game-container'
+    });
+    $('body').prepend($container);
+
+    var maxnumber = 20;
+    var actions = ['+','-'];
+
+    var calculate = {
+        '+': function(x,y){return x+y},
+        '-': function(x,y){return x-y}
+    };
+
+    var firstnumber = {
+        value: 0,
+        reset: function(){
+            this.value = Math.floor(Math.random()*maxnumber);
+        }
+    };
+
+    var secondnumber = {
+        value: 0,
+        reset: function(){
+            this.value = Math.floor(Math.random()*maxnumber);
+        }
+    };
+
+    var action = {
+        value: '',
+        actions: ['+','-'],
+        reset: function(){
+            this.value = this.actions[Math.floor(Math.random()*this.actions.length)];
+        }
+    };
+
+    action.reset();
+    firstnumber.reset();
+    if (action.value === '-'){
+        do {
+            secondnumber.reset();
+        } while (secondnumber.value >= firstnumber.value);
+    } else {
+        secondnumber.reset();
+    }
+
+    var $firstnumber = $('<span>',{
+        id: 'first-number',
+        html: firstnumber.value
+    });
+
+    var $secondnumber = $('<span>',{
+        id: 'second-number',
+        html: secondnumber.value
+    });
+
+    var $action = $('<span>',{
+        id: 'action',
+        html: action.value
+    });
+
+    var $equals = $('<span>',{
+        html: ' = '
+    });
+
+    var $result = $('<input>',{
+        type: 'text',
+        value: '',
+        id: 'result',
+        size: 2
+    });
+
+    var $verify = $('<button>',{
+        type: 'button',
+        html: 'Sprawdź',
+        id: 'verify'
+    });
+
+    var $comment = $('<div>',{
+        id: 'comment'
+    });
+
+    var $finalresult = $('<div>',{
+        id: 'finalresult'
+    });
+
+    var finalresult = 0;
+
+    $verify.on('click',function(){
+        var response = $result.val();
+        var correct = calculate[action](firstnumber.value,secondnumber.value);
+        if (response == correct){
+            $comment.html('Brawo! Prawidłowa odpowiedź!');
+            $finalresult.html('Twój wynik: '+(++finalresult)+' pkt.');
+        } else {
+            $comment.html('Spróbuj jeszcze raz...');
+            $result.val('');
+            $finalresult.html('Twój wynik: '+(++finalresult)+' pkt.');
+        }
+    });
+
+    $result.on('keyup',function(e){
+        if (e.which == 13){
+            $verify.trigger('click');
+        }
+    });
+
+    var drawtask = function(){
+        firstnumber.reset();
+        action.reset();
+        if (action.value === '-'){
+            do {
+                secondnumber.reset();
+            } while (secondnumber.value >= firstnumber.value);
+        } else {
+            secondnumber.reset();
+        }
+    };
+
+    $container
+        .append($firstnumber)
+        .append($action)
+        .append($secondnumber)
+        .append($equals)
+        .append($result)
+        .append($verify)
+        .append($comment)
+        .append($finalresult);
+});
+</script>
+</body>
+</html>
